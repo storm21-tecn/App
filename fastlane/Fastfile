@@ -65,6 +65,13 @@ def setIOSBuildOutputsInEnv()
 end
 
 platform :android do
+  desc "Fecking test innit"
+  lane :fuck do
+    exportEnvVars({
+      KEY_GRADLE_APK_PATH => 'path/innit'
+    })
+  end
+
   desc "Generate a production AAB"
   lane :build do
     ENV["ENVFILE"]=".env.production"
