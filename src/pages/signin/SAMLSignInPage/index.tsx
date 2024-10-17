@@ -4,10 +4,21 @@ import SAMLLoadingIndicator from '@components/SAMLLoadingIndicator';
 import CONFIG from '@src/CONFIG';
 import ONYXKEYS from '@src/ONYXKEYS';
 import type {SAMLSignInPageOnyxProps, SAMLSignInPageProps} from './types';
+import CONST from '@src/CONST';
 
 function SAMLSignInPage({credentials}: SAMLSignInPageProps) {
     useEffect(() => {
-        window.location.replace(`${CONFIG.EXPENSIFY.SAML_URL}?email=${credentials?.login}&referer=${CONFIG.EXPENSIFY.EXPENSIFY_CASH_REFERER}`);
+        const fetchOptions: RequestInit = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({email: credentials?.login, referer: CONFIG.EXPENSIFY.EXPENSIFY_CASH_REFERER}),
+        };
+
+        fetch(CONFIG.EXPENSIFY.SAML_URL, fetchOptions);
+       // window.location.replace(`${url}?email=${credentials?.login}&referer=${CONFIG.EXPENSIFY.EXPENSIFY_CASH_REFERER}`);
     }, [credentials?.login]);
 
     return <SAMLLoadingIndicator />;
