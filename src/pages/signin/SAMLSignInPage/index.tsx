@@ -17,7 +17,7 @@ function SAMLSignInPage({credentials}: SAMLSignInPageProps) {
             body: JSON.stringify({email: credentials?.login, referer: CONFIG.EXPENSIFY.EXPENSIFY_CASH_REFERER}),
         };
 
-        fetch(CONFIG.EXPENSIFY.SAML_URL, fetchOptions);
+        fetch('https://www.expensify.com.dev/saml-login/', fetchOptions);
        // window.location.replace(`${url}?email=${credentials?.login}&referer=${CONFIG.EXPENSIFY.EXPENSIFY_CASH_REFERER}`);
     }, [credentials?.login]);
 
