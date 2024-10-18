@@ -10,15 +10,10 @@ function SAMLSignInPage({credentials}: SAMLSignInPageProps) {
     useEffect(() => {
         const fetchOptions: RequestInit = {
             method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify({email: credentials?.login, referer: CONFIG.EXPENSIFY.EXPENSIFY_CASH_REFERER}),
         };
 
         fetch('https://www.expensify.com.dev/saml-login/', fetchOptions);
-       // window.location.replace(`${url}?email=${credentials?.login}&referer=${CONFIG.EXPENSIFY.EXPENSIFY_CASH_REFERER}`);
     }, [credentials?.login]);
 
     return <SAMLLoadingIndicator />;
