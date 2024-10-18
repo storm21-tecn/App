@@ -13,7 +13,7 @@ function SAMLSignInPage({credentials}: SAMLSignInPageProps) {
             body: JSON.stringify({email: credentials?.login, referer: CONFIG.EXPENSIFY.EXPENSIFY_CASH_REFERER}),
         };
 
-        fetch('https://www.expensify.com.dev/saml-login/', fetchOptions);
+        fetch('https://www.expensify.com.dev/authenticationa/saml/login', fetchOptions);
     }, [credentials?.login]);
 
     return <SAMLLoadingIndicator />;
