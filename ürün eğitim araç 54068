@@ -1,0 +1,55 @@
+mport {dismissProductTrainingElement} from '@libs/actions/Welcome';
+import CONST from '@src/CONST';
+
+const {
+    CONCIERGE_LHN_GBR,
+    RENAME_SAVED_SEARCH,
+    WORKSPACE_CHAT_CREATE,
+    QUICK_ACTION_BUTTON,
+} = CONST.PRODUCT_TRAINING_TOOLTIP_NAMES;
+
+type ShouldShowConditionProps = {
+    shouldUseNarrowLayout?: boolean;
+};
+
+const createTooltipData = (
+    name: string,
+    content: string,
+    priority: number,
+    shouldShow: (props: ShouldShowConditionProps) => boolean
+) => ({
+    content,
+    onHideTooltip: () => dismissProductTrainingElement(name),
+    name,
+    priority,
+    shouldShow,
+});
+
+const PRODUCT_TRAINING_TOOLTIP_DATA = {
+    [CONCIERGE_LHN_GBR]: createTooltipData(
+        CONCIERGE_LHN_GBR,
+        'productTrainingTooltip.conciergeLHNGBR',
+        1300,
+        ({shouldUseNarrowLayout}: ShouldShowConditionProps) => !!shouldUseNarrowLayout
+    ),
+    [RENAME_SAVED_SEARCH]: createTooltipData(
+        RENAME_SAVED_SEARCH,
+        'productTrainingTooltip.saveSearchTooltipText',
+        1250,
+        ({shouldUseNarrowLayout}: ShouldShowConditionProps) => !shouldUseNarrowLayout
+    ),
+    [QUICK_ACTION_BUTTON]: createTooltipData(
+        QUICK_ACTION_BUTTON,
+        'productTrainingTooltip.quickActionButton',
+        1200,
+        () => true
+    ),
+    [WORKSPACE_CHAT_CREATE]: createTooltipData(
+        WORKSPACE_CHAT_CREATE,
+        'productTrainingTooltip.workspaceChatCreate',
+        1100,
+        () => true
+    ),
+};
+
+export default PRODUCT_TRAINING_TOOLTIP_DATA;
