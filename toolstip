@@ -1,0 +1,57 @@
+import React, { useState } from 'react';
+
+// Tooltip Bileşeni
+const Tooltip = ({ onTooltipClose }) => {
+    const [isVisible, setIsVisible] = useState(true);
+
+    const handleClick = () => {
+        // İpucu tıklanabilir öğeye tıklanırsa kaybolur
+        onTooltipClose();
+        setIsVisible(false);
+    };
+
+    if (!isVisible) return null; // İpucu görünmezse, render edilmez
+
+    return (
+        <div style={tooltipStyle}>
+            <span onClick={handleClick}>Click me to close the tooltip!</span>
+        </div>
+    );
+};
+
+const tooltipStyle = {
+    position: 'absolute',
+    background: 'rgba(0, 0, 0, 0.7)',
+    color: 'white',
+    padding: '10px',
+    borderRadius: '5px',
+    top: '50px', // Öğe ile uygun yerleştirme yapın
+    left: '50px',
+};
+
+// LHN Menüsü ve Tooltip'in Entegre Edilmesi
+const LHN = () => {
+    const [tooltipVisible, setTooltipVisible] = useState(true);
+
+    // İpucunun görünürlüğünü kontrol eder
+    const handleTooltipClose = () => setTooltipVisible(false);
+
+    return (
+        <div>
+            {/* Tooltip sadece görünüyorsa render edilir */}
+            {tooltipVisible && <Tooltip onTooltipClose={handleTooltipClose} />}
+
+            <div className="lh-menu" style={{ position: 'relative', marginTop: '100px' }}>
+                {/* LHN menüsündeki sohbetler */}
+                <button onClick={() => console.log('Concierge sohbetine tıklanıyor')}>
+                    Concierge Chat
+                </button>
+                <button onClick={() => console.log('Diğer sohbet')}>
+                    Other Chat
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default LHN;
